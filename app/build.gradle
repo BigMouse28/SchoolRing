@@ -29,7 +29,7 @@ dependencies {
 
 javafx {
     version = '21.0.7'
-    modules = [ 'javafx.controls', 'javafx.fxml' ]
+    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.media' ]
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -40,8 +40,52 @@ java {
 }
 
 application {
-    // Define the main class for the application.
+    applicationName = 'SchoolRing'
     mainClass = 'com.hafidzubaidillah.SchoolRing.App'
+}
+
+tasks.register('packageWindows', Exec) {
+    group = 'distribution'
+    description = 'Build a portable Windows app bundle with a bundled Java runtime.'
+    dependsOn tasks.named('installDist')
+
+    def packageDirectory = layout.buildDirectory.dir('package/windows')
+    def inputDirectory = layout.buildDirectory.dir('install/SchoolRing/lib')
+    def jpackageExecutable = file("${System.getProperty('java.home')}/bin/jpackage.exe")
+
+    doFirst {
+        if (!System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+            throw new GradleException('The Windows application bundle must be built on Windows.')
+        }
+        if (!jpackageExecutable.isFile()) {
+            throw new GradleException("jpackage was not found at ${jpackageExecutable}. Run this task with a full JDK.")
+        }
+        delete packageDirectory
+        packageDirectory.get().asFile.mkdirs()
+    }
+
+    inputs.dir(inputDirectory)
+    outputs.dir(packageDirectory)
+
+    commandLine jpackageExecutable,
+            '--type', 'app-image',
+            '--name', 'SchoolRing',
+            '--app-version', '1.0.0',
+            '--vendor', 'SchoolRing',
+            '--description', 'Bel Sekolah Otomatis',
+            '--input', inputDirectory.get().asFile,
+            '--main-jar', 'app.jar',
+            '--main-class', 'com.hafidzubaidillah.SchoolRing.App',
+            '--dest', packageDirectory.get().asFile
+}
+
+tasks.register('packageWindowsZip', Zip) {
+    group = 'distribution'
+    description = 'Create a ZIP of the portable Windows app bundle.'
+    dependsOn tasks.named('packageWindows')
+    archiveFileName = 'SchoolRing-windows-x64.zip'
+    destinationDirectory = layout.buildDirectory.dir('package')
+    from(layout.buildDirectory.dir('package/windows/SchoolRing'))
 }
 
 tasks.named('test') {
