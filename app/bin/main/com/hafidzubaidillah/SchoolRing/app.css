@@ -1,0 +1,134 @@
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: #eef3f8;
+}
+
+.header {
+    -fx-background-color: linear-gradient(to bottom, #ffc837, #f6a900);
+    -fx-padding: 14 22;
+    -fx-border-color: #d38b00;
+    -fx-border-width: 0 0 2 0;
+}
+
+.brand {
+    -fx-font-size: 32px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #bd2026;
+    -fx-effect: dropshadow(gaussian, white, 2, 0.7, 1, 1);
+}
+
+.tagline {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #152c48;
+}
+
+.toolbar {
+    -fx-background-color: #dbe8fa;
+    -fx-padding: 8 14;
+    -fx-spacing: 9;
+    -fx-border-color: #c1d0e2;
+    -fx-border-width: 0 0 1 0;
+}
+
+.toolbar .button {
+    -fx-min-height: 34;
+    -fx-font-weight: bold;
+}
+
+.day-tabs {
+    -fx-background-color: #f4f7fa;
+    -fx-padding: 8 8 0 8;
+    -fx-spacing: 4;
+}
+
+.day-button {
+    -fx-background-color: #e2e9f1;
+    -fx-border-color: #bdc9d6;
+    -fx-border-radius: 4 4 0 0;
+    -fx-background-radius: 4 4 0 0;
+    -fx-font-weight: bold;
+    -fx-padding: 8 10;
+}
+
+.day-button:selected {
+    -fx-background-color: white;
+    -fx-border-color: #e3b800;
+    -fx-border-width: 2 2 0 2;
+}
+
+.schedule-table {
+    -fx-background-color: white;
+    -fx-border-color: #d1d9e2;
+}
+
+.schedule-table .column-header-background {
+    -fx-background-color: #ffce00;
+}
+
+.schedule-table .column-header, .schedule-table .filler {
+    -fx-background-color: #ffce00;
+    -fx-border-color: #d8ad00;
+    -fx-size: 31px;
+}
+
+.schedule-table .table-row-cell:selected {
+    -fx-background-color: #fff58a;
+    -fx-text-background-color: #18212b;
+}
+
+.side-panel {
+    -fx-background-color: #f4f7fa;
+    -fx-padding: 10;
+    -fx-spacing: 10;
+    -fx-border-color: #d1d9e2;
+    -fx-border-width: 0 0 0 1;
+}
+
+.calendar-card {
+    -fx-background-color: white;
+    -fx-border-color: #cbd4df;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 9;
+}
+
+.month-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #f2d300;
+}
+
+.digital-clock {
+    -fx-background-color: #090d12;
+    -fx-text-fill: #19ed39;
+    -fx-font-family: "Consolas", monospace;
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-padding: 4 9;
+    -fx-alignment: center;
+    -fx-border-color: #344350;
+}
+
+.editor {
+    -fx-background-color: #fffda5;
+    -fx-padding: 12;
+    -fx-spacing: 8;
+    -fx-border-color: #e7df76;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.editor .text-field {
+    -fx-pref-height: 31;
+}
+
+.editor .button {
+    -fx-font-weight: bold;
+}
+
+.subtle {
+    -fx-text-fill: #657386;
+    -fx-font-size: 11px;
+}
