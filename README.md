@@ -26,6 +26,24 @@ bell sounds. Schedules are stored locally in SQLite.
 You can also open the Gradle view in VS Code and run
 `SchoolRing → app → Tasks → application → run`.
 
+### Fix Java errors shown only in the VS Code editor
+
+This workspace configures the Java extensions to use the JDK 21 installation
+at `C:\Program Files\Java\jdk-21.0.12` for both the Java project and Gradle
+import. If your JDK 21 is installed in a different location, update the paths
+in `.vscode/settings.json`.
+
+If the editor still reports unresolved Java or JavaFX types while the Gradle
+build succeeds:
+
+1. Open the project root folder (the folder containing `settings.gradle`) in
+   VS Code, rather than opening an individual `.java` file.
+2. Run **Java: Clean Java Language Server Workspace** from the Command
+   Palette and choose to reload.
+3. In the Gradle view, refresh the Gradle project. If needed, run
+   `.\gradlew.bat :app:compileJava` in the integrated terminal to confirm the
+   project still builds.
+
 ## Build and test
 
 From the project root:
