@@ -64,7 +64,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) {
         primaryStage = stage;
-        repository = new ScheduleRepository(Path.of(System.getProperty("user.dir"), "schoolring.db"));
+        repository = new ScheduleRepository(Path.of("SchoolRing.db"));
         scheduleTable = new TableView<>();
         timeField = new TextField();
         titleField = new TextField();
@@ -150,17 +150,14 @@ public class App extends Application {
         }
 
         TableColumn<ScheduleEntry, String> timeColumn = new TableColumn<>("Jam");
-        timeColumn.setCellValueFactory(cell ->
-                new ReadOnlyStringWrapper(cell.getValue().time().format(TIME_FORMAT)));
+        timeColumn.setCellValueFactory(cell -> new ReadOnlyStringWrapper(cell.getValue().time().format(TIME_FORMAT)));
         timeColumn.setPrefWidth(95);
         TableColumn<ScheduleEntry, String> titleColumn = new TableColumn<>("Jadwal");
-        titleColumn.setCellValueFactory(cell ->
-                new ReadOnlyStringWrapper(cell.getValue().title()));
+        titleColumn.setCellValueFactory(cell -> new ReadOnlyStringWrapper(cell.getValue().title()));
         titleColumn.setPrefWidth(220);
         titleColumn.setMinWidth(130);
         TableColumn<ScheduleEntry, String> bellColumn = new TableColumn<>("Bel");
-        bellColumn.setCellValueFactory(cell ->
-                new ReadOnlyStringWrapper(fileName(cell.getValue().bellPath())));
+        bellColumn.setCellValueFactory(cell -> new ReadOnlyStringWrapper(fileName(cell.getValue().bellPath())));
         bellColumn.setPrefWidth(130);
         scheduleTable.getColumns().setAll(timeColumn, titleColumn, bellColumn);
         scheduleTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
@@ -211,7 +208,7 @@ public class App extends Application {
         monthLabel.setAlignment(Pos.CENTER);
 
         GridPane days = new GridPane();
-        String[] weekDays = {"Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"};
+        String[] weekDays = { "Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab" };
         for (int column = 0; column < weekDays.length; column++) {
             Label label = new Label(weekDays[column]);
             label.setMaxWidth(Double.MAX_VALUE);
@@ -361,9 +358,10 @@ public class App extends Application {
             }
             refreshSchedule();
             scheduleTable.getSelectionModel().select(editingId == null
-                    ? null : scheduleTable.getItems().stream()
-                    .filter(entry -> entry.id() == editingId)
-                    .findFirst().orElse(null));
+                    ? null
+                    : scheduleTable.getItems().stream()
+                            .filter(entry -> entry.id() == editingId)
+                            .findFirst().orElse(null));
         } catch (IllegalStateException | IllegalArgumentException exception) {
             showError("Jadwal tidak tersimpan", rootMessage(exception));
         }

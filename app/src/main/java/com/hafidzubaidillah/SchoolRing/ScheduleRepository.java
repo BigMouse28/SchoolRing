@@ -15,7 +15,7 @@ public class ScheduleRepository {
     private final String jdbcUrl;
 
     public ScheduleRepository(Path databasePath) {
-        jdbcUrl = "jdbc:sqlite:" + databasePath.toAbsolutePath();
+        jdbcUrl = "jdbc:sqlite:" + databasePath;
         initialize();
     }
 
@@ -33,7 +33,7 @@ public class ScheduleRepository {
         try (Connection connection = connect(); Statement statement = connection.createStatement()) {
             statement.execute(sql);
         } catch (SQLException exception) {
-            throw new IllegalStateException("Tidak dapat menyiapkan database jadwal.", exception);
+            throw new IllegalStateException("Tidak dapat menyiapkan database.", exception);
         }
     }
 
@@ -71,8 +71,8 @@ public class ScheduleRepository {
                 """;
         List<ScheduleEntry> entries = new ArrayList<>();
         try (Connection connection = connect();
-             PreparedStatement statement = connection.prepareStatement(sql);
-             ResultSet result = statement.executeQuery()) {
+                PreparedStatement statement = connection.prepareStatement(sql);
+                ResultSet result = statement.executeQuery()) {
             while (result.next()) {
                 entries.add(new ScheduleEntry(
                         result.getLong("id"),
@@ -93,7 +93,7 @@ public class ScheduleRepository {
                 VALUES (?, ?, ?, ?)
                 """;
         try (Connection connection = connect();
-             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             bind(statement, dayOfWeek, time, title, bellPath);
             statement.executeUpdate();
             try (ResultSet keys = statement.getGeneratedKeys()) {
@@ -126,7 +126,8 @@ public class ScheduleRepository {
 
     public void delete(long id) {
         try (Connection connection = connect();
-             PreparedStatement statement = connection.prepareStatement("DELETE FROM schedule_entries WHERE id = ?")) {
+                PreparedStatement statement = connection
+                        .prepareStatement("DELETE FROM schedule_entries WHERE id = ?")) {
             statement.setLong(1, id);
             if (statement.executeUpdate() == 0) {
                 throw new IllegalArgumentException("Jadwal yang akan dihapus tidak ditemukan.");
@@ -137,7 +138,7 @@ public class ScheduleRepository {
     }
 
     private static void bind(PreparedStatement statement, int dayOfWeek, LocalTime time,
-                             String title, String bellPath) throws SQLException {
+            String title, String bellPath) throws SQLException {
         statement.setInt(1, dayOfWeek);
         statement.setString(2, time.toString());
         statement.setString(3, title);
