@@ -30,6 +30,12 @@ application {
     mainClass = 'com.hafidzubaidillah.SchoolRing.App'
 }
 
+run {
+    jvmArgs = [
+        "-Dprism.order=sw"
+    ]
+}
+
 tasks.register('packageWindows', Exec) {
     group = 'distribution'
     description = 'Build a portable Windows app bundle with a bundled Java runtime.'
